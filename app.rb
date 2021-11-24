@@ -43,34 +43,29 @@ class App
   def create_person
     print 'Do you want to create a student(1) or a teacher(2)? [Input the number]:'
     input = gets.chomp.to_i
-    case input
-    when 1
-      create_student
-    when 2
-      create_teacher
-    end
-  end
-
-  def create_student
     print 'Age: '
     age = gets.chomp.to_i
     print 'Name: '
     name = gets.chomp
+    case input
+    when 1
+      create_student(age, name)
+    when 2
+      create_teacher(age, name)
+    end
+    puts 'Person created successfully!'
+  end
+
+  def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp.upcase == 'Y'
     gets
     @people << Student.new(name, age, parent_permission)
-    puts 'Person created successfully!'
   end
 
-  def create_teacher
-    print 'Age: '
-    age = gets.chomp.to_i
-    print 'Name: '
-    name = gets.chomp
+  def create_teacher(age, name)
     print 'Specialization: '
     specialization = gets.chomp
-    puts 'Person created successfully!'
     gets
     @people << Teacher.new(name, age, specialization)
   end
