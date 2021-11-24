@@ -34,7 +34,7 @@ end
 def main
   puts 'Welcome to School Library App!'
   school_drawing
-  @app = App.new
+  @school = App.new
   print_options
 end
 
@@ -48,7 +48,7 @@ def print_options
   if input == 7
     quit
   else
-    @app.choose_option(input)
+    @school.choose_option(input)
     print_options
   end
 end
