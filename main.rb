@@ -12,6 +12,13 @@ require './app'
 
 def school_drawing
   puts "
+=======
+require './person'
+require './student'
+require './teacher'
+require './classroom'
+require './rental'
+
   \\\_/
 --(_)--   .
   / \\\    /_\\
@@ -20,6 +27,7 @@ def school_drawing
  /____[SCHOOL]___\\                                ()))
   | [] .-.-. [] |                                (((())
 ..|____|_|_|____|..................................)(... ldb"
+
   puts
 end
 
