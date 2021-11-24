@@ -3,9 +3,10 @@ require './student'
 require './teacher'
 require './classroom'
 require './rental'
-require './book'
+require './books_module'
 
 class App
+  include Books
   def school_drawing
     puts "
   \\\_/
@@ -70,12 +71,6 @@ class App
     end
   end
 
-  def list_books
-    @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
-    puts
-    main
-  end
-
   def list_people
     @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}" }
     puts
@@ -116,17 +111,6 @@ class App
     puts 'Person created successfully!'
     gets
     @people << Teacher.new(name, age, specialization)
-    main
-  end
-
-  def create_book
-    print 'Title: '
-    title = gets.chomp
-    print 'Author: '
-    author = gets.chomp
-    puts 'Book created successfully!'
-    gets
-    @books << Book.new(title, author)
     main
   end
 
