@@ -1,6 +1,6 @@
 require './app'
 
-@choose_option = {
+@run_command = {
   1 => 'List books',
   2 => 'List people',
   3 => 'Create person',
@@ -34,7 +34,7 @@ end
 
 def print_options
   puts 'Please choose an option by entering a number:'
-  @choose_option.each do |key, value|
+  @run_command.each do |key, value|
     puts "#{key} - #{value}"
   end
   input = gets.chomp.to_i
