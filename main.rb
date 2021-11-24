@@ -12,12 +12,6 @@ require './app'
 
 def school_drawing
   puts "
-=======
-require './person'
-require './student'
-require './teacher'
-require './classroom'
-require './rental'
 
   \\\_/
 --(_)--   .
