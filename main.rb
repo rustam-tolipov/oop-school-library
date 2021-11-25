@@ -48,6 +48,7 @@ def print_options
 end
 
 def quit
+  @school.save_files
   puts 'Thank you for using this App!'
   exit
 end
