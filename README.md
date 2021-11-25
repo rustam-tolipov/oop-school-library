@@ -14,8 +14,9 @@ And all of this will be built in a beautiful and well-organized way!
 
 ## Getting Started
 
-- git clone ?
-- cd enumerable
+- git clone https://github.com/Rustamxon7/OOP-school-library/
+- cd OOP-School-Library-App
+- ruby main.rb
 
 ## Authors
 
@@ -24,6 +25,12 @@ And all of this will be built in a beautiful and well-organized way!
 - GitHub: [@Rustamxon7](https://github.com/Rustamxon7)
 - Twitter: [@Rustamjon7777](https://twitter.com/Rustamjon7777)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/rustamjon-tolipov/)
+
+👤 **Ahmad Zia Yousufi**
+
+- GitHub: [@ahzia](https://github.com/ahzia)
+- Twitter: [@ZiaYousofi](https://twitter.com/ZiaYousofi)
+- LinkedIn: [Ahmad zia Yousufi](https://https://www.linkedin.com/in/ah-ziayosfi)
 
 ## 🤝 Contributing
 
