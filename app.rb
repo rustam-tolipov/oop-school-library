@@ -4,6 +4,7 @@ require './teacher'
 require './classroom'
 require './rental'
 require './book'
+require 'json'
 class App
   def initialize
     @people = []
@@ -104,6 +105,12 @@ class App
       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
     puts
+  end
+
+  def save_files
+    File.open('books.json', 'w') { |file| file.write(@books.to_json) }
+    File.open('people.json', 'w') { |file| file.write(@people.to_json) }
+    File.open('rentals.json', 'w') { |file| file.write(@rentals.to_json) }
   end
 
   def invalid_option
