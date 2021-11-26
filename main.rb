@@ -40,15 +40,17 @@ def print_options
   input = gets.chomp.to_i
 
   if input == 7
-    quit
+    save_quit
   else
     @school.choose_option(input)
     print_options
   end
 end
 
-def quit
-  @school.save_files
+def save_quit
+  puts 'Do you want to save data [y/n]!'
+  save = gets.chomp.upcase == 'Y'
+  @school.save_files if save
   puts 'Thank you for using this App!'
   exit
 end
