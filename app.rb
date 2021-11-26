@@ -105,6 +105,7 @@ class App
     File.open('rentals.json', 'w') { |file| file.write(@rentals.to_json) }
   end
 
+  # rubocop:disable Style/GuardClause
   def open_files
     if File.exist?('books.json')
       JSON.parse(File.read('books.json')).map do |book|
@@ -123,6 +124,7 @@ class App
     end
   end
 
+  # rubocop:enable Style/GuardClause
   def load_book(book)
     book_object = create_book_object(book)
     @books << book_object
