@@ -29,7 +29,9 @@ def main
   puts 'Welcome to School Library App!'
   school_drawing
   @school = App.new
+  @school.open_files
   print_options
+  puts
 end
 
 def print_options

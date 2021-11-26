@@ -1,7 +1,5 @@
-require './person'
 require './student'
 require './teacher'
-require './classroom'
 require './rental'
 require './book'
 require 'json'
@@ -10,7 +8,6 @@ class App
     @people = []
     @books = []
     @rentals = []
-    open_files
   end
 
   def choose_option(input)
@@ -34,12 +31,10 @@ class App
 
   def list_books
     @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
-    puts
   end
 
   def list_people
     @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}" }
-    puts
   end
 
   def create_person
@@ -68,7 +63,6 @@ class App
   def create_teacher(age, name)
     print 'Specialization: '
     specialization = gets.chomp
-    gets
     @people << Teacher.new(name, age, specialization)
   end
 
@@ -78,7 +72,6 @@ class App
     print 'Author: '
     author = gets.chomp
     puts 'Book created successfully!'
-    gets
     @books << Book.new(title, author)
   end
 
@@ -94,7 +87,6 @@ class App
     print 'Date: '
     date = gets.chomp
     puts 'Rental created successfully!'
-    gets
     @rentals << Rental.new(date, @books[book_index], @people[person_index])
   end
 
@@ -105,7 +97,6 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
-    puts
   end
 
   def save_files
@@ -125,29 +116,52 @@ class App
         load_person(person)
       end
     end
+    if File.exist?('rentals.json')
+      JSON.parse(File.read('rentals.json')).map do |rental|
+        load_rental(rental)
+      end
+    end
   end
 
   def load_book(book)
-    book_object = Book.new(book['title'], book['author'])
+    book_object = create_book_object(book)
     @books << book_object
   end
 
   def load_person(person)
-    person_object = if person['json_class'] == 'Teacher'
-                      load_teacher(person)
-                    else
-                      load_student(person)
-                    end
+    person_object = create_person_based_on_type(person)
     @people << person_object
   end
 
-  def load_teacher(person)
+  def load_rental(rental)
+    book = rental['book']
+    book_object = create_book_object(book)
+    person = rental['person']
+    person_object = create_person_based_on_type(person)
+    date = rental['date']
+    rental_object = Rental.new(date, book_object, person_object)
+    @rentals << rental_object
+  end
+
+  def create_book_object(book)
+    Book.new(book['title'], book['author'])
+  end
+
+  def create_person_based_on_type(person)
+    if person['json_class'] == 'Teacher'
+      create_teacher_object(person)
+    else
+      create_student_object(person)
+    end
+  end
+
+  def create_teacher_object(person)
     teacher_object = Teacher.new(person['age'], person['name'], person['specialization'])
     teacher_object.id = person['id'].to_i
     teacher_object
   end
 
-  def load_student(person)
+  def create_student_object(person)
     student_object = Student.new(person['age'], person['name'], person['parent_permission'])
     student_object.id = person['id'].to_i
     student_object
