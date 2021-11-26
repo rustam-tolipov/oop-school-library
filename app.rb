@@ -117,14 +117,40 @@ class App
   def open_files
     if File.exist?('books.json')
       JSON.parse(File.read('books.json')).map do |book|
-        load_books(book)
+        load_book(book)
+      end
+    end
+    if File.exist?('people.json')
+      JSON.parse(File.read('people.json')).map do |person|
+        load_person(person)
       end
     end
   end
 
-  def load_books(book)
+  def load_book(book)
     book_object = Book.new(book['title'], book['author'])
     @books << book_object
+  end
+
+  def load_person(person)
+    person_object = if person['json_class'] == 'Teacher'
+                      load_teacher(person)
+                    else
+                      load_student(person)
+                    end
+    @people << person_object
+  end
+
+  def load_teacher(person)
+    teacher_object = Teacher.new(person['age'], person['name'], person['specialization'])
+    teacher_object.id = person['id'].to_i
+    teacher_object
+  end
+
+  def load_student(person)
+    student_object = Student.new(person['age'], person['name'], person['parent_permission'])
+    student_object.id = person['id'].to_i
+    student_object
   end
 
   def invalid_option
