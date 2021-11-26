@@ -31,7 +31,6 @@ def main
   @school = App.new
   @school.open_files
   print_options
-  puts
 end
 
 def print_options
@@ -45,7 +44,9 @@ def print_options
     save_quit
   else
     @school.choose_option(input)
+    puts
     print_options
+    puts
   end
 end
 

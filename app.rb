@@ -56,7 +56,6 @@ class App
   def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp.upcase == 'Y'
-    gets
     @people << Student.new(name, age, parent_permission)
   end
 
