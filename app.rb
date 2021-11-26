@@ -10,6 +10,7 @@ class App
     @people = []
     @books = []
     @rentals = []
+    open_files
   end
 
   def choose_option(input)
@@ -111,6 +112,19 @@ class App
     File.open('books.json', 'w') { |file| file.write(@books.to_json) }
     File.open('people.json', 'w') { |file| file.write(@people.to_json) }
     File.open('rentals.json', 'w') { |file| file.write(@rentals.to_json) }
+  end
+
+  def open_files
+    if File.exist?('books.json')
+      JSON.parse(File.read('books.json')).map do |book|
+        load_books(book)
+      end
+    end
+  end
+
+  def load_books(book)
+    book_object = Book.new(book['title'], book['author'])
+    @books << book_object
   end
 
   def invalid_option
