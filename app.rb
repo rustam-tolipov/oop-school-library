@@ -1,9 +1,8 @@
-require './person'
 require './student'
 require './teacher'
-require './classroom'
 require './rental'
 require './book'
+require 'json'
 class App
   def initialize
     @people = []
@@ -32,12 +31,10 @@ class App
 
   def list_books
     @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
-    puts
   end
 
   def list_people
     @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}" }
-    puts
   end
 
   def create_person
@@ -59,14 +56,12 @@ class App
   def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp.upcase == 'Y'
-    gets
     @people << Student.new(name, age, parent_permission)
   end
 
   def create_teacher(age, name)
     print 'Specialization: '
     specialization = gets.chomp
-    gets
     @people << Teacher.new(name, age, specialization)
   end
 
@@ -76,7 +71,6 @@ class App
     print 'Author: '
     author = gets.chomp
     puts 'Book created successfully!'
-    gets
     @books << Book.new(title, author)
   end
 
@@ -92,7 +86,6 @@ class App
     print 'Date: '
     date = gets.chomp
     puts 'Rental created successfully!'
-    gets
     @rentals << Rental.new(date, @books[book_index], @people[person_index])
   end
 
@@ -103,7 +96,76 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
-    puts
+  end
+
+  def save_files
+    File.open('books.json', 'w') { |file| file.write(@books.to_json) }
+    File.open('people.json', 'w') { |file| file.write(@people.to_json) }
+    File.open('rentals.json', 'w') { |file| file.write(@rentals.to_json) }
+  end
+
+  # rubocop:disable Style/GuardClause
+  def open_files
+    if File.exist?('books.json')
+      JSON.parse(File.read('books.json')).map do |book|
+        load_book(book)
+      end
+    end
+    if File.exist?('people.json')
+      JSON.parse(File.read('people.json')).map do |person|
+        load_person(person)
+      end
+    end
+    if File.exist?('rentals.json')
+      JSON.parse(File.read('rentals.json')).map do |rental|
+        load_rental(rental)
+      end
+    end
+  end
+
+  # rubocop:enable Style/GuardClause
+  def load_book(book)
+    book_object = create_book_object(book)
+    @books << book_object
+  end
+
+  def load_person(person)
+    person_object = create_person_based_on_type(person)
+    @people << person_object
+  end
+
+  def load_rental(rental)
+    book = rental['book']
+    book_object = create_book_object(book)
+    person = rental['person']
+    person_object = create_person_based_on_type(person)
+    date = rental['date']
+    rental_object = Rental.new(date, book_object, person_object)
+    @rentals << rental_object
+  end
+
+  def create_book_object(book)
+    Book.new(book['title'], book['author'])
+  end
+
+  def create_person_based_on_type(person)
+    if person['json_class'] == 'Teacher'
+      create_teacher_object(person)
+    else
+      create_student_object(person)
+    end
+  end
+
+  def create_teacher_object(person)
+    teacher_object = Teacher.new(person['age'], person['name'], person['specialization'])
+    teacher_object.id = person['id'].to_i
+    teacher_object
+  end
+
+  def create_student_object(person)
+    student_object = Student.new(person['age'], person['name'], person['parent_permission'])
+    student_object.id = person['id'].to_i
+    student_object
   end
 
   def invalid_option

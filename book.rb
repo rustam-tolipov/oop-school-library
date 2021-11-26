@@ -1,5 +1,6 @@
 class Book
-  attr_accessor :title, :author, :rentals
+  attr_accessor :title, :author
+  attr_reader :rentals
 
   def initialize(title, author)
     @title = title
@@ -7,7 +8,15 @@ class Book
     @rentals = []
   end
 
-  def add_rental(date, person)
-    @rentals << Rental.new(date, self, person)
+  def add_rental(rental)
+    @rentals.push(rental)
+  end
+
+  def to_json(*args)
+    {
+      JSON.create_id => self.class.name,
+      'title' => @title,
+      'author' => @author
+    }.to_json(*args)
   end
 end
