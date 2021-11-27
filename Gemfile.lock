@@ -3,7 +3,7 @@ GEM
   specs:
     ast (2.4.2)
     parallel (1.21.0)
-    parser (3.0.2.0)
+    parser (3.0.3.0)
       ast (~> 2.4.1)
     rainbow (3.0.0)
     regexp_parser (2.1.1)
