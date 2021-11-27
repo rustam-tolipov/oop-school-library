@@ -23,4 +23,4 @@ RSpec.describe Person do
       expect(person.rentals).to eq([])
     end
   end
-end  
+end

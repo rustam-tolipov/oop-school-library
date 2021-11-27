@@ -28,11 +28,9 @@
 #   end
 # end
 
-
 require './student'
 require './person'
 require 'rspec'
-
 
 RSpec.describe Student do
   describe '#initialize' do

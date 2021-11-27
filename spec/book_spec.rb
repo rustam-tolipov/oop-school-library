@@ -1,9 +1,6 @@
 require './book'
 require 'rspec'
 
-require './book'
-require 'rspec'
-
 RSpec.describe Book do
   before(:each) do
     @book = Book.new('title', 'author')
@@ -27,7 +24,7 @@ end
 RSpec.configure do |config|
   config.color = true
   config.formatter = :documentation
-end 
+end
 
 RSpec.configure do |config|
   config.color = true
