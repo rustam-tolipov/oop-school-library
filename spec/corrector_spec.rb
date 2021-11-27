@@ -6,11 +6,11 @@ RSpec.describe Corrector do
     @corrector = Corrector.new
   end
 
-  it 'should capitalize first letter of each word' do
+  it 'should capitalize first letter test1:ahmad' do
     expect(@corrector.correct_name('ahmad')).to eq('Ahmad')
   end
 
-  it 'should capitalize first letter' do
+  it 'should capitalize first letter test2:rustamjon' do
     expect(@corrector.correct_name('rustamjon')).to eq('Rustamjon')
   end
 end
