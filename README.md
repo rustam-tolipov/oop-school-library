@@ -16,7 +16,10 @@ And all of this will be built in a beautiful and well-organized way!
 
 - git clone https://github.com/Rustamxon7/OOP-school-library/
 - cd OOP-School-Library-App
-- ruby main.rb
+
+- Run the project by running `ruby main.rb` on the command line.
+
+- To run the `tests` make sure you install rspec gem by running `gem install rspec` on the command line then run `rspec spec` on the    command line to see the test passing
 
 ## Authors
 
