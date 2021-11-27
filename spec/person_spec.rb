@@ -17,10 +17,4 @@ RSpec.describe Person do
       expect(person.parent_permission).to eq({ parent_permission: true })
     end
   end
-  describe '#rentals' do
-    it 'should return an empty array' do
-      person = Person.new('Rustamjon', 20)
-      expect(person.rentals).to eq([])
-    end
-  end
 end
